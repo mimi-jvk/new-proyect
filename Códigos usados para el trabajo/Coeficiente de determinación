@@ -1,0 +1,10 @@
+SS_res = np.sum((y_test_flat - y_pred_flat)**2)
+SS_tot = np.sum((y_test_flat - np.mean(y_test_flat))**2)
+R2 = 1 - (SS_res / SS_tot)
+
+print(f"Calculos intermedios:")
+print(f"SS_res (suma de residuos al cuadrado): {SS_res:.6f}")
+print(f"SS_tot (varianza total):                {SS_tot:.6f}")
+print(f"Razon SS_res/SS_tot:                    {SS_res/SS_tot:.6f}")
+
+print(f"R^2 = {R2:.6f}")
