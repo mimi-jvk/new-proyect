@@ -1,0 +1,31 @@
+learning_rates = [0.1, 0.01, 0.001, 0.0001]
+resultados = {}
+
+print("Entrenando con diferentes learning rates")
+
+for lr in learning_rates:
+    print(f"Entrenando con lr={lr}")
+    w_temp, b_temp, hist = entrenar_perceptron(X_train_scaled, y_train, learning_rate=lr, epochs=1000)
+    resultados[lr] = {'historial': hist,'w': w_temp,'b': b_temp,'perdida_final': hist[-1]}
+    print(f"    Perdida final: {hist[-1]:.6f}")
+
+# Mostrar comparacion de resultados
+print("COMPARACION DE RESULTADOS")
+
+for lr in learning_rates:
+    perdida_final = resultados[lr]['perdida_final']
+    print(f"  lr={lr:6.4f}: perdida = {perdida_final:.6f}")
+
+y_test_reshaped = y_test.reshape(-1, 1)
+y_pred_test = propagacion_adelante(X_test_scaled, resultados[mejor_lr]['w'], resultados[mejor_lr]['b'])
+perdida_test = calcular_perdida(y_pred_test, y_test_reshaped)
+
+print(f"Modelo con lr={mejor_lr}:")
+print(f"Perdida en entrenamiento: {resultados[mejor_lr]['perdida_final']:.6f}")
+print(f"Perdida en prueba: {perdida_test:.6f}")
+print(f"Diferencia: {abs(perdida_test - resultados[mejor_lr]['perdida_final']):.6f}")
+
+if perdida_test < resultados[mejor_lr]['perdida_final']*1.1:
+    print("El modelo generaliza bien")
+else:
+    print("Posible overfitting")
