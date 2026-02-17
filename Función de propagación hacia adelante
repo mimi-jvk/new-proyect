@@ -1,0 +1,26 @@
+def propagacion_adelante(X, w, b):
+    """
+    Calcula la propagacion hacia adelante del perceptron.
+
+    Parametros:
+    -----------
+    X : numpy array de forma (m, n_caracteristicas)
+        Matriz de caracteristicas donde m es el numero de ejemplos
+        CADA FILA es un ejemplo, CADA COLUMNA es una característica
+    w : numpy array de forma (n_caracteristicas, 1)
+        Vector de pesos
+    b : float
+        Sesgo
+
+    Retorna:
+    --------
+    z : numpy array de forma (m, 1)
+        Predicciones para cada ejemplo
+    """
+    # Calcule z = X * w + b
+    # NO necesitamos transponer w porque la multiplicacion es X @ w
+    z = np.dot(X, w) + b
+
+    return z
+X_trained_cinco= X_train_scaled[:5,]
+print(propagacion_adelante(X_trained_cinco, w, b))
