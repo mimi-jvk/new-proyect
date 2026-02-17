@@ -1,0 +1,58 @@
+def entrenar_perceptron(X_train, y_train, learning_rate=0.01, epochs=1000):
+    """
+    Entrena un perceptron para regresion.
+
+    Parametros:
+    -----------
+    X_train : datos de entrenamiento
+    y_train : etiquetas de entrenamiento
+    learning_rate : tasa de aprendizaje
+    epochs : numero de epocas (iteraciones sobre todo el dataset)
+
+    Retorna:
+    --------
+    w, b : parametros entrenados
+    historial_perdida : lista con la perdida en cada epoca
+    """
+    # Obtener numero de caracteristicas
+    n_caracteristicas = X_train.shape[1]
+
+    # Inicializar parametros
+    w, b = inicializar_parametros(n_caracteristicas)
+
+    # Lista para guardar el historial de perdida
+    historial_perdida = []
+
+    # Asegurar que y_train tenga forma correcta
+    if y_train.ndim == 1:
+        y_train = y_train.reshape(-1, 1)
+
+    # Ciclo de entrenamiento
+    for epoca in range(epochs):
+        # 1. Propagación adelante
+        y_pred = propagacion_adelante(X_train, w, b)
+
+        # 2. Calcular perdida y guardar en historial
+        perdida = calcular_perdida(y_pred, y_train)
+        historial_perdida.append(perdida)
+
+        # 3. Calcular gradientes
+        dw, db = calcular_gradientes(X_train, y_pred, y_train)
+
+        # 4. Actualizar parametros
+        w, b = actualizar_parametros(w, b, dw, db, learning_rate)
+
+        # Imprimir progreso cada 100 epocas
+        if epoca % 100 == 0:
+            print(f"Epoca {epoca:4d}, Perdida: {perdida:.6f}")
+
+    return w, b, historial_perdida
+
+
+
+w_entrenado, b_entrenado, historial_perdida = entrenar_perceptron(X_train_scaled, y_train, learning_rate=0.01, epochs=1000)
+
+print(f"Entrenamiento completado")
+print(f"Perdida final: {historial_perdida[-1]:.6f}")
+print(f"Perdida inicial: {historial_perdida[0]:.6f}")
+print(f"Reduccion: {historial_perdida[0] - historial_perdida[-1]:.6f}")
