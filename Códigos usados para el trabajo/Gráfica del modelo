@@ -1,0 +1,21 @@
+y_pred_flat = y_pred_test.flatten()
+y_test_flat = y_test.flatten()
+
+# Crear el scatter plot
+plt.figure(figsize=(10, 8))
+plt.scatter(y_test_flat, y_pred_flat, alpha=0.6, s=50, edgecolors='black', linewidth=0.5)
+
+# Añadir línea diagonal y = x (línea ideal)
+min_val = min(y_test_flat.min(), y_pred_flat.min())
+max_val = max(y_test_flat.max(), y_pred_flat.max())
+plt.plot([min_val, max_val], [min_val, max_val], 'r--', linewidth=2, label='Linea ideal (y=x)')
+
+# Configurar el gráfico
+plt.xlabel('Valores reales (y_test)', fontsize=12)
+plt.ylabel('Predicciones (y_pred)', fontsize=12)
+plt.title('Comparacion: Valores Reales vs Predicciones', fontsize=14, fontweight='bold')
+plt.legend(fontsize=11)
+plt.grid(True, alpha=0.3)
+plt.axis('equal')
+plt.tight_layout()
+plt.show()
