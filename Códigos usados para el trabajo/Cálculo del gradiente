@@ -1,0 +1,35 @@
+def calcular_gradientes(X, y_pred, y_real):
+    """
+    Calcula los gradientes de la perdida respecto a w y b.
+
+    Parámetros:
+    -----------
+    X : numpy array de forma (m, n)
+        Matriz de características
+    y_pred : numpy array de forma (m, 1)
+        Predicciones del modelo
+    y_real : numpy array de forma (m, 1)
+        Valores reales
+
+    Retorna:
+    --------
+    dw : numpy array de forma (n, 1) - gradiente respecto a w
+    db : float - gradiente respecto a b
+    """
+    # Obtener numero de ejemplos
+    m = X.shape[0]
+
+    # Asegurar que y_real tenga forma correcta
+    if y_real.ndim == 1:
+        y_real = y_real.reshape(-1, 1)
+
+    # Calcular el error (ŷ - y)
+    error = y_pred - y_real
+
+    # Calcular gradiente respecto a w: dw = (2/m) Xᵀ(ŷ - y)
+    dw = (2/m) * np.dot(X.T, error)
+
+    # Calcular gradiente respecto a b: db = (2/m) Σ(ŷ - y)
+    db = (2/m) * np.sum(error)
+
+    return dw, db
