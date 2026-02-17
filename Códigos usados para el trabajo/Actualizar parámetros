@@ -1,0 +1,31 @@
+def actualizar_parametros(w, b, dw, db, learning_rate):
+    """
+    Actualiza los pesos y sesgo usando gradiente descendente.
+
+    Parámetros:
+    -----------
+    w : numpy array de forma (n, 1)
+        Pesos actuales
+    b : float
+        Sesgo actual
+    dw : numpy array de forma (n, 1)
+        Gradiente respecto a w
+    db : float
+        Gradiente respecto a b
+    learning_rate : float
+        Tasa de aprendizaje (η)
+
+    Retorna:
+    --------
+    w : numpy array de forma (n, 1)
+        Pesos actualizados
+    b : float
+        Sesgo actualizado
+    """
+    # Actualizar pesos: w_nuevo = w - learning_rate * dw
+    w = w - learning_rate * dw
+
+    # Actualizar sesgo: b_nuevo = b - learning_rate * db
+    b = b - learning_rate * db
+
+    return w, b
