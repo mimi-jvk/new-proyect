@@ -1,0 +1,37 @@
+def calcular_perdida(y_pred, y_real):
+    """
+    Calcula el error cuadratico medio.
+
+    Parámetros:
+    -----------
+    y_pred : numpy array de forma (m, 1)
+        Predicciones del modelo
+    y_real : numpy array de forma (m, 1) o (m,)
+        Valores reales
+
+    Retorna:
+    --------
+    mse : float
+        Error cuadrático medio
+    """
+    # Asegurar que y_real tenga la forma correcta
+    if y_real.ndim == 1:
+        y_real = y_real.reshape(-1, 1)
+
+    # Numero de ejemplos
+    m = y_real.shape[0]
+
+    # MSE = (1/m) * sum((y_pred - y_real)^2)
+    # COMPLETE EL CÓDIGO AQUÍ
+    mse = (1/m) * np.sum((y_pred - y_real)**2)
+
+    return mse
+
+
+
+# Hacer predicciones con pesos aleatorios iniciales
+y_train_reshaped = y_train.reshape(-1, 1)
+y_pred_inicial = propagacion_adelante(X_train_scaled, w, b)
+perdida_inicial = calcular_perdida(y_pred_inicial, y_train_reshaped)
+
+print(perdida_inicial)
